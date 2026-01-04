@@ -9,17 +9,17 @@ const Layout = ({ children }) => {
     return (
         <div className="flex bg-slate-950 min-h-screen text-slate-100 flex-col md:flex-row">
             {/* Mobile Header */}
-            <div className="md:hidden bg-slate-900 p-4 flex items-center justify-between border-b border-slate-800 sticky top-0 z-50">
-                <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold border border-indigo-500/30">S</div>
-                    <span className="font-bold">SemihOS</span>
-                </div>
+            <div className="md:hidden bg-slate-900/95 backdrop-blur-md p-4 flex items-center justify-between border-b border-slate-800/50 sticky top-0 z-50">
                 <button
                     onClick={() => setIsMobileMenuOpen(true)}
-                    className="p-2 bg-slate-800 rounded-lg text-white hover:bg-slate-700 transition"
+                    className="p-2 -ml-2 text-slate-300 hover:text-white transition-colors active:scale-95"
                 >
-                    <Menu size={24} />
+                    <Menu size={28} strokeWidth={2} />
                 </button>
+
+                <span className="font-bold text-lg text-white">SemihOS</span>
+
+                <div className="w-8"></div> {/* Spacer for centering */}
             </div>
 
             <Sidebar />
