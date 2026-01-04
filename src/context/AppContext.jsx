@@ -6,13 +6,22 @@ export const AppProvider = ({ children }) => {
     // Navigation State
     // Helper for Persistence
     const loadState = (key, fallback) => {
-        const saved = localStorage.getItem(key);
-        if (saved) return JSON.parse(saved);
+        try {
+            const saved = localStorage.getItem(key);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                // Ensure we never return null/undefined if we have a fallback
+                return parsed !== null && parsed !== undefined ? parsed : fallback;
+            }
+        } catch (e) {
+            console.error(`Error loading state for ${key}`, e);
+        }
         return fallback;
     };
 
     // Navigation (No need to persist usually, but can if desired)
     const [activeTab, setActiveTab] = useState('Dashboard');
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Mobile Menu State
 
     // Data States with Persistence
     const [availableFunds, setAvailableFunds] = useState(() => loadState('availableFunds', -1000.00));
@@ -38,6 +47,9 @@ export const AppProvider = ({ children }) => {
         { id: 2, creditor: 'Klarna', amount: 300.00, dueDate: '15.02.2026', category: 'Shopping' },
         { id: 3, creditor: 'Privat (Max)', amount: 1000.00, dueDate: '01.03.2026', category: 'Privat' },
     ]));
+
+    // Derived State
+    const totalDebt = debts.reduce((sum, debt) => sum + (parseFloat(debt.amount) || 0), 0);
 
     const [workHours, setWorkHours] = useState(() => loadState('workHours', []));
     const [diaryEntries, setDiaryEntries] = useState(() => loadState('diaryEntries', []));
@@ -254,6 +266,8 @@ export const AppProvider = ({ children }) => {
         <AppContext.Provider value={{
             activeTab,
             setActiveTab,
+            isMobileMenuOpen,
+            setIsMobileMenuOpen,
             debts,
             totalDebt,
             addDebt,
