@@ -49,9 +49,9 @@ const Sidebar = () => {
 
             {/* Premium Sidebar */}
             <div className={`
-                w-[280px] h-screen bg-slate-900/95 backdrop-blur-xl border-r border-white/5 flex flex-col p-6 
+                w-[280px] h-[100dvh] bg-slate-900/95 backdrop-blur-xl border-r border-white/5 flex flex-col p-6 pb-24
                 fixed left-0 top-0 overflow-y-auto z-50 shadow-2xl transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)
-                md:translate-x-0 md:w-64
+                md:translate-x-0 md:w-64 md:h-screen md:pb-6
                 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
             `}>
                 {/* User Profile Area */}
